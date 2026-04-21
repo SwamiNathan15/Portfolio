@@ -1,9 +1,124 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=home_swaminathan_v_portfolio/code.html">
-  </head>
-  <body>
-    <p>Redirecting to portfolio...</p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA_INJECTION // SV</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+
+        canvas { position: absolute; top: 0; left: 0; opacity: 0.4; }
+
+        .overlay {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, transparent 20%, #000 80%);
+        }
+
+        .status-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .glitch-text {
+            font-size: 1.2rem;
+            color: #22d3ee;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+
+        .progress-container {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+            position: relative;
+        }
+
+        #progress-bar {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: #22d3ee;
+            box-shadow: 0 0 20px #22d3ee;
+            transition: width 4s linear;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="overlay">
+        <div class="status-box">
+            <div class="glitch-text" id="status-msg">Analyzing_Neural_Paths</div>
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "0101010101010101";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#22d3ee";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+
+        const matrixInterval = setInterval(drawMatrix, 35);
+
+        // 2. Loading Logic
+        window.onload = () => {
+            const bar = document.getElementById('progress-bar');
+            const msg = document.getElementById('status-msg');
+
+            setTimeout(() => { bar.style.width = "100%"; }, 100);
+
+            // Change messages during the 4-second load
+            setTimeout(() => { msg.innerText = "Syncing_Identity"; }, 1500);
+            setTimeout(() => { msg.innerText = "Access_Granted"; msg.style.color = "#fff"; }, 3200);
+
+            // Redirect
+            setTimeout(() => {
+                window.location.href = "./home.html";
+            }, 4500);
+        };
+    </script>
+</body>
 </html>
